@@ -1,10 +1,11 @@
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
+#include <chrono>
 #include <ctime>
 
 using namespace std;
-
+using namespace std::chrono;
 
 
 int splice(int arr[], size_t ARR_MAX, size_t index)
@@ -42,6 +43,7 @@ void shuffle_one(int arr[], const size_t ARR_MAX)
     int copy[ARR_MAX];
     size_t i, copy_index = 0;
 
+    auto start = high_resolution_clock::now();
     while(n > 0)
     {
         i = floor(rand() % (ARR_MAX));
@@ -53,7 +55,10 @@ void shuffle_one(int arr[], const size_t ARR_MAX)
             n--;
         }
     }
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<nanoseconds>(end - start);
     print_arr(copy,ARR_MAX);
+    cout << "Time taken: " << duration.count() << " nanoseconds." << endl;
     return;
 }
 
@@ -63,13 +68,17 @@ void shuffle_two(int arr[], const size_t ARR_MAX)
     int copy[ARR_MAX];
     size_t i, copy_index = 0;
 
+    auto start = high_resolution_clock::now();
     while(n > 0)
     {
         i = floor(rand() % (n--));
 
         copy[copy_index++] = splice(arr, n, i);
     }
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<nanoseconds>(end - start);
     print_arr(copy, ARR_MAX);
+    cout << "Time taken: " << duration.count() << " nanoseconds." << endl;
     return;
 }
 
@@ -79,6 +88,7 @@ void shuffle_three(int arr[], const size_t ARR_MAX)
     size_t i;
     int t;
 
+    auto start = high_resolution_clock::now();
     while (m > 0)
     {
         i = floor(rand() % (m--));
@@ -87,7 +97,10 @@ void shuffle_three(int arr[], const size_t ARR_MAX)
         arr[m] = arr[i];
         arr[i] = t;
     }
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<nanoseconds>(end - start);
     print_arr(arr, ARR_MAX);
+    cout << "Time taken: " << duration.count() << " nanoseconds." << endl;
     return;
 }
 
